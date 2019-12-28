@@ -115,7 +115,7 @@ while(1){
 	 else if(cmd[0] == "clear" || cmd[0] == "cls"){
 	 	clear();
 	 }
-	 else if(cmd[0] == "ls" || cmd[0] == "dir"){
+	 /*else if(cmd[0] == "ls" || cmd[0] == "dir"){
 	 	vector<string> elements = listdir();
 	 	vector<string> files = isFile(elements);
 	 	vector<string> dirs = isDir(elements);
@@ -126,7 +126,7 @@ while(1){
 		for(int i = 0; i < dirs.size(); i++){
 			cout << "[@] " << i << endl;
 		}
-	 }
+	 }*/
 	 else if(cmd[0] == "music"){
 	 	//music_menu();
 	 }
