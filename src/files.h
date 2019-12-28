@@ -1,6 +1,9 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <dirent.h>
+#include <sys/types.h>
+#include <errno.h>
 
 using namespace std;
 
@@ -60,8 +63,21 @@ void copy(const string first_filename, const string second_filename){
 	f2.close();
 }
 
-bool isFile(vector<string> elems){
-	for(int i = 0; i < elems.size(); i++){
-		
-	}
+bool isFile(string elem){
+	DIR* directory = opendir(elem.c_str());
+
+    if(directory != NULL)
+    {
+     closedir(directory);
+     return false;
+    }
+
+    if(errno == ENOTDIR)
+    {
+     return true;
+    }
+
+    return false;
 }
+
+

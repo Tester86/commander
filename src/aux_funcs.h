@@ -85,5 +85,42 @@ string getdir(){
 }
 
 vector<string> listdir(){
-	
+	{
+    vector<string> names;
+    string search_path = getdir() + "/*.*";
+    WIN32_FIND_DATA fd; 
+    HANDLE hFind = ::FindFirstFile(search_path.c_str(), &fd); 
+    if(hFind != INVALID_HANDLE_VALUE) { 
+        do { 
+            // read all (real) files in current folder
+            // , delete '!' read other 2 default folder . and ..
+            if(! (fd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) ) {
+                names.push_back(fd.cFileName);
+            }
+        }while(::FindNextFile(hFind, &fd)); 
+        ::FindClose(hFind); 
+    } 
+    return names;
+}
+}
+
+string colorize(const string word, const string color){
+	HANDLE outcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	WORD final_color;
+	if(color == "red"){
+		final_color = FOREGROUND_RED | FOREGROUND_INTENSITY;
+	}
+	else if(color == "blue"){
+		final_color = FOREGROUND_BLUE | FOREGROUND_INTENSITY;
+	}
+	else if(color == "green"){
+		final_color = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
+	}
+	SetConsoleTextAttribute(outcon, final_color);
+	return word;
+}
+
+void end_colorize(){
+	HANDLE outcon = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(outcon, 15);
 }

@@ -115,18 +115,24 @@ while(1){
 	 else if(cmd[0] == "clear" || cmd[0] == "cls"){
 	 	clear();
 	 }
-	 /*else if(cmd[0] == "ls" || cmd[0] == "dir"){
-	 	vector<string> elements = listdir();
-	 	vector<string> files = isFile(elements);
-	 	vector<string> dirs = isDir(elements);
-	 	
-	 	for(int i = 0; i < files.size(); i++){
-	 		cout << "[*] " << i << endl;
+	 else if(cmd[0] == "ls"){
+	 	vector<string> dirs = listdir();
+	 	cout << endl;
+	 	for(int i = 0; i < dirs.size(); i++){
+	 		cout << dirs[i] << endl;
 		 }
-		for(int i = 0; i < dirs.size(); i++){
-			cout << "[@] " << i << endl;
-		}
-	 }*/
+		 cout << endl;
+	 }
+	 else if(cmd[0] == "cd"){
+	 		if(cmd_mob == "cd"){
+	 			help("file");
+			 } else{
+			 	if(chdir(cmd[1].c_str()) != NULL){
+			 		cout << colorize("This directory does not exist: ", "red") << colorize(cmd[1], "red") << endl;
+			 		end_colorize();
+				 }
+	 }
+}
 	 else if(cmd[0] == "music"){
 	 	//music_menu();
 	 }
