@@ -1,6 +1,7 @@
 #include "aux_funcs.h"
 #include "files.h"
 
+
 using namespace std;
 
 void help(const string elem);
@@ -94,11 +95,7 @@ while(1){
 	getline(cin, cmd_mob);
 	cmd = split_string(cmd_mob, " ");
 	if(cmd[0] == "help"){
-		try{
-			help(cmd[1]);
-		} catch(...){
-			help("a");
-		}
+		help("a");
 	}
 	 else if(cmd[0] == "write"){
 	 	init_fw(cmd[1], "w");
@@ -116,12 +113,24 @@ while(1){
 	 	clear();
 	 }
 	 else if(cmd[0] == "ls"){
-	 	vector<string> dirs = listdir();
-	 	cout << endl;
-	 	for(int i = 0; i < dirs.size(); i++){
-	 		cout << dirs[i] << endl;
+	 	vector<string> elems = listdir();
+	 	vector<string> files;
+	 	vector<string> dirs;
+	 	
+	 	for(int i = 0; i < elems.size(); i++){
+	 		if(isFile(elems[i])){
+	 			files.push_back(elems[i]);
+			 } else dirs.push_back(elems[i]);
 		 }
-		 cout << endl;
+		 
+		 for(int i = 0; i < files.size(); i++){
+		 	cout << colorize(files[i], "green") << endl;
+		 }
+		 end_colorize();
+		 for(int i = 0; i < dirs.size(); i++){
+		 	cout<< colorize(dirs[i], "blue") << endl;
+		 }
+		 end_colorize();
 	 }
 	 else if(cmd[0] == "cd"){
 	 		if(cmd_mob == "cd"){
@@ -134,7 +143,7 @@ while(1){
 	 }
 }
 	 else if(cmd[0] == "music"){
-	 	//music_menu();
+	 	music_menu();
 	 }
 	 else{
 	 	if(!(cmd_mob == "")){
