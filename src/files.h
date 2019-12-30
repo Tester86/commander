@@ -4,6 +4,7 @@
 #include <dirent.h>
 #include <sys/types.h>
 #include <errno.h>
+#include <stdio.h>
 
 using namespace std;
 
@@ -80,4 +81,9 @@ bool isFile(string elem){
     return false;
 }
 
+void rmfile(const string filename){
+	if(remove(filename.c_str()) != 0){
+		cout << endl << "This file cannot be deleted: " << filename << endl;
+	}
+}
 

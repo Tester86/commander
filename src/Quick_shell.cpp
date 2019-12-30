@@ -1,6 +1,4 @@
-#include "aux_funcs.h"
-#include "files.h"
-
+#include "super_lib.h"
 
 using namespace std;
 
@@ -142,8 +140,16 @@ while(1){
 				 }
 	 }
 }
+	 else if(cmd[0] == "rm" || cmd[0] == "remove"){
+	 	for(int i = 1; i < cmd.size(); i++){
+	 		rmfile(cmd[i]);
+		 }
+	 }
 	 else if(cmd[0] == "music"){
 	 	music_menu();
+	 }
+	 else if(cmd[0] == "play"){
+	 	play_song(cmd[1]);
 	 }
 	 else{
 	 	if(!(cmd_mob == "")){
@@ -158,19 +164,19 @@ void help(const string elem){
 	if(elem == "miscelanea" || elem == "general" || elem == "overall"){
 	cout << "\nTask:                                Function:" << endl << endl;
 	cout << "  help                                  Shows help menu" << endl;
-	cout << "  clear                                 Clear screen" << endl;
+	cout << "  clear / cls                           Clear screen" << endl;
 	cout << "  music                                 Opens music menu" << endl << endl << endl;
 } else if(elem == "file"){
 	cout << "Files:" << endl;
-	cout << "  write to [file]                                 Opens code editor to write a file" << endl;
-	cout << "  append to [file]                                Opens code editor to append to a file" << endl;
-	cout << "  read [file]                                     Prints content of a file onscreen" << endl;
-	cout << "  copy [file] to [new file path]                  Copies the content of a file to another file" << endl;
-	cout << "  remove or rm [file]                             Removes a file" << endl;
+	cout << "  write [file]                                 Opens code editor to write a file" << endl;
+	cout << "  append [file]                                Opens code editor to append to a file" << endl;
+	cout << "  read [file]                                  Prints content of a file onscreen" << endl;
+	cout << "  copy [file] to [new file path]               Copies the content of a file to another file" << endl;
+	cout << "  remove / rm [file]                           Removes a file" << endl;
 } else if(elem == "music"){
 	cout << "  play [song filename]                            Plays a song in predetermined music player" << endl;
 	cout << "  play cmd [song filename]                        Plays a song in the console" << endl;
-	cout << "  *download or dw [youtube or google link]        Downloads .mp3 file to Music folder" << endl;
+	cout << "  *download / dw [youtube or google link]         Downloads .mp3 file to Music folder" << endl;
 } else{
 	cout << "\nUsage of help:" << endl;
 	cout << "   Help [element]";
