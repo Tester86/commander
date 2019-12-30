@@ -14,6 +14,7 @@ void play_song(const string filename){
 		end_colorize();
 	}
 }
+
 int choose_song(int vsize){
 	int song_number;
 	while(1){

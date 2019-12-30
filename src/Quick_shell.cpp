@@ -3,84 +3,15 @@
 using namespace std;
 
 void help(const string elem);
-
 void sleep(const int seconds);
 vector<string> split_string(const string& str, const string& delimiter);
-
-void login();
-void first_time_login();
 void main_loop();
 
-class User_Acc{
-    public:
-        User_Acc(){
-            int isLogged = exists("dtbs.txt");
-            if (isLogged == 0){
-            first_time_login();
-            }
-            else{
-                login();
-            }
-        }
-};
-
 int main(){
-
-
- // User_Acc acc;
  
  main_loop();
 
     return 0;
-}
-
-
-
-void first_time_login(){
-    TCHAR username[UNLEN + 1];
-    DWORD size = UNLEN + 1;
-    GetUserName((TCHAR*)username, &size);
-    string password;
-    ofstream dtbs;
-    dtbs.open("dtbs.txt", ios::out);
-
-    cout << "\nChoose a password > ";
-    cin >> password;
-    dtbs << password << endl;
-
-    cout << "\n\nWelcome to Rubicon Shell, " << username << "!\n\n";
-    sleep(3);
-    main_loop();
-}
-
-void login(){
-	string username;
-	string try_username;
-    string try_password;
-    string password;
-    TCHAR default_username[UNLEN + 1];
-    DWORD size = UNLEN + 1;
-    GetUserName((TCHAR*)default_username, &size);
-    ifstream dtbs("dtbs.txt");
-
-    while(!dtbs.eof()){
-    	dtbs >> username;
-    	dtbs >> password;
-    }
-    dtbs.close();
-    cout << "Username > ";
-    cin >> try_username;
-    cout << "\nPassword > ";
-    cin >> try_password;
-
-    if(try_password == password){
-    	if(try_username == username){
-            cout << "Welcome to Rubicon Shell, @" << username << "!";
-            sleep(3);
-            system("@cls||clear");
-            main_loop();
-        } else cout << "Incorrect Username";
-} else cout << "Incorrect Password";
 }
 
 void main_loop(){
@@ -134,10 +65,10 @@ while(1){
 	 		if(cmd_mob == "cd"){
 	 			help("file");
 			 } else{
-			 	if(chdir(cmd[1].c_str()) != NULL){
-			 		cout << colorize("This directory does not exist: ", "red") << colorize(cmd[1], "red") << endl;
-			 		end_colorize();
-				 }
+			 	if(chdir(cmd[1].c_str()) != 0){
+			 	cout << colorize("This directory does not exist: ", "red") << colorize(cmd[1], "red") << endl;
+			 	end_colorize();
+			 }
 	 }
 }
 	 else if(cmd[0] == "rm" || cmd[0] == "remove"){
@@ -150,6 +81,9 @@ while(1){
 	 }
 	 else if(cmd[0] == "play"){
 	 	play_song(cmd[1]);
+	 }
+	 else if(cmd[0] == "exit"){
+	 	exit(1);
 	 }
 	 else{
 	 	if(!(cmd_mob == "")){
@@ -172,10 +106,9 @@ void help(const string elem){
 	cout << "  append [file]                                Opens code editor to append to a file" << endl;
 	cout << "  read [file]                                  Prints content of a file onscreen" << endl;
 	cout << "  copy [file] to [new file path]               Copies the content of a file to another file" << endl;
-	cout << "  remove / rm [file]                           Removes a file" << endl;
+	cout << "  remove / rm [file / dir]                           Removes a file" << endl;
 } else if(elem == "music"){
 	cout << "  play [song filename]                            Plays a song in predetermined music player" << endl;
-	cout << "  play cmd [song filename]                        Plays a song in the console" << endl;
 	cout << "  *download / dw [youtube or google link]         Downloads .mp3 file to Music folder" << endl;
 } else{
 	cout << "\nUsage of help:" << endl;
