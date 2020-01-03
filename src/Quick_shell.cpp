@@ -49,6 +49,9 @@ while(1){
 	 else if(cmd[0] == "clear" || cmd[0] == "cls"){
 	 	clear();
 	 }
+	 /*else if(cmd[0] == "mail"){
+	 	mail(cmd[1].c_str(), cmd[2].c_str(), cmd[3].c_str(), cmd[4].c_str(), cmd[5].c_str(), atoi(cmd[6].c_str()));
+	 }*/
 	 else if(cmd[0] == "ls"){
 	 	vector<string> elems = listdir();
 	 	vector<string> files;
@@ -71,8 +74,12 @@ while(1){
 	 }
 	 else if(cmd[0] == "cd"){
 	 		if(cmd_mob == "cd"){
-	 			help("file");
-			 } else{
+	 			chdir(home_path.c_str());
+			 } 
+			 else if(cmd[1] == "music"){
+			 	chdir(music_path.c_str());
+			 }
+			 else{
 			 	if(chdir(cmd[1].c_str()) != 0){
 			 	cout << colorize("This directory does not exist: ", "red") << colorize(cmd[1], "red") << endl;
 			 	end_colorize();
@@ -89,6 +96,10 @@ while(1){
 	 }
 	 else if(cmd[0] == "play"){
 	 	play_song(cmd[1]);
+	 }
+	 else if(cmd[0] == "win"){
+	 	string win_cmd = join(cmd, "win");
+	 	system(win_cmd.c_str());
 	 }
 	 else if(cmd[0] == "exit"){
 	 	exit(1);

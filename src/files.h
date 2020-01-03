@@ -26,16 +26,11 @@ void init_fw(const string filename, const string mode){
 		efile.close();
 	}
 	else if(mode == "r"){
-		FILE *f = fopen(filename.c_str(), "r");
-		char c;
-		
-		c  = fgetc(f);
-		
-		while(c != EOF){
-			cout << c;
-			c = fgetc(f);
-		}
-		fclose(f);
+	string line;
+	ifstream dtbs(filename.c_str());
+	while(getline(dtbs, line)){
+		cout << line << endl;
+	}
 	}
 	else if(mode == "a"){
 		ofstream efile;
@@ -51,6 +46,9 @@ void init_fw(const string filename, const string mode){
 	}
 	}
 	
+void cat(const string filename){
+	
+}
 void copy(const string first_filename, const string second_filename){
 	string line;
 	

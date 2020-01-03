@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <Windows.h>
 #include <lmcons.h>
 #include <limits.h>
 #include <cstring>
@@ -14,6 +13,11 @@
 #include <dirent.h>
 #include <bits/stdc++.h>
 #include <io.h>
+#include <winsock2.h>
+#include <Windows.h>
+
+#define frase const char *
+#define snprintf _snprintf
 
 using namespace std;
 
@@ -167,6 +171,18 @@ vector<string> split_string(const string& str,
     return strings;
 }
 
+string join(vector<string> elems, const string ignore = ""){
+	string final;
+	for(int i = 0; i < elems.size(); i++){
+		if(elems[i] == ignore){
+			continue;
+	} else{
+		final += " " + elems[i];
+	}
+}
+	return final;
+}
+
 int check(string word, vector<string> word_list){
 	for(int i = 0; i < word_list.size(); i++){
 		if(word_list[i] == word){
@@ -242,4 +258,72 @@ bool endswith(const string &full_str, const string &ending){
     } else return false;
 }
 
+////////// EMAIL ///////////
+
+/*static void sendmail_write(const int sock, frase polla, frase arg){
+	char buf[4096];
+	if(arg != NULL){
+		snprintf(buf, sizeof(buf), polla, arg);
+	} else{
+		snprintf(buf, sizeof(buf), polla);
+	}
+	
+	send(sock, buf, strlen(buf), 0);
+}
+
+static int sendmail(frase from, frase to, frase subject, frase body, frase hostname, const int port){
+	struct hostent *host;
+	struct sockaddr_in saddr_in;
+	int sock = 0;
+	
+	WSADATA wsaData;
+	 if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
+      return -1;
+   }
+   
+    sock = socket(AF_INET, SOCK_STREAM, 0);
+    host = gethostbyname(hostname);
+   
+   saddr_in.sin_family      = AF_INET;
+   saddr_in.sin_port        = htons((u_short)port);
+   saddr_in.sin_addr.s_addr = 0;
+
+   memcpy((char*)&(saddr_in.sin_addr), host->h_addr, host->h_length);
+
+   if (connect(sock, (struct sockaddr*)&saddr_in, sizeof(saddr_in)) == -1) {
+      return -2;
+   }
+    
+    sendmail_write(sock, "HELO %s\n",       from);    // greeting
+    sendmail_write(sock, "MAIL FROM: %s\n", from);    // from
+    sendmail_write(sock, "RCPT TO: %s\n",   to);      // to
+    sendmail_write(sock, "DATA\n",          NULL);    // begin data
+
+    // next comes mail headers
+    sendmail_write(sock, "From: %s\n",      from);
+    sendmail_write(sock, "To: %s\n",        to);
+    sendmail_write(sock, "Subject: %s\n",   subject);
+
+    sendmail_write(sock, "\n",              NULL);
+
+    sendmail_write(sock, "%s\n",            body);    // data
+
+    sendmail_write(sock, ".\n",             NULL);    // end data
+    sendmail_write(sock, "QUIT\n",          NULL);    // terminate
+
+    close(sock);
+
+    return 0;
+}
+
+void mail(frase from, frase to, frase subject, frase body, frase hostname, const int port){
+	int ret = sendmail(from, to, subject, body, hostname, port);
+	if(ret != 0){
+		cout << endl << "An error occurred while sending the email" << endl << "Error code: " << ret << endl;
+	}
+	else{
+		cout << endl << "Email succesfully sent to " << to << endl;
+	}
+}
+*/
 
