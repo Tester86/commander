@@ -17,6 +17,103 @@
 
 using namespace std;
 
+string music_path;
+string home_path;
+
+void first_time_dtbs_login(){
+	mkdir("../etc");
+		chdir("../etc");
+		
+		ofstream dtbs_first_time("dtbs.txt");
+		string music_path_confirm, home_path_confirm;
+		cout << endl << "Enter path to music directory > ";
+		cin >> music_path;
+		cout << endl << "Confirm path to music directory > ";
+		cin >> music_path_confirm;
+		cout << endl << "Enter home path > ";
+		cin >> home_path;
+		cout << endl << "Confirm home path > ";
+		cin >> home_path_confirm;
+		if(home_path != home_path_confirm){
+			cout << endl << "Home paths are not the same!";
+			Sleep(3);
+			exit(1);
+		}
+		else{
+			dtbs_first_time << home_path << endl;
+		}
+		if(music_path != music_path_confirm){
+			cout << endl << "Music paths are not the same";
+			Sleep(3);
+			exit(1);
+		} else{
+			dtbs_first_time << music_path;
+		}
+}
+
+string get_music_path(){
+	if(chdir("../etc") != 0){
+		first_time_dtbs_login();
+} else{
+	ifstream dtbs("dtbs.txt");
+	dtbs >> music_path;
+	dtbs >> music_path;
+} return music_path;
+}
+
+string get_home_path(){
+	if(chdir("../etc") != 0){
+		first_time_dtbs_login();
+	} else{
+		ifstream dtbs("dtbs.txt");
+		dtbs >> home_path;
+	} return home_path;
+}
+
+string get_data(){
+	string music_path, home_path;
+	if(chdir("../etc") != 0){
+		mkdir("../etc");
+		chdir("../etc");
+		
+		ofstream dtbs_first_time("dtbs.txt");
+		string music_path_confirm, home_path_confirm;
+		
+		cout << endl << "Enter path to music directory > ";
+		cin >> music_path;
+		cout << endl << "Confirm path to music directory > ";
+		cin >> music_path_confirm;
+		if(music_path != music_path_confirm){
+			cout << endl << "Paths are not the same";
+			Sleep(3);
+			exit(1);
+		} else{
+			dtbs_first_time << music_path << endl;
+		}
+		cout << endl << "Enter path to home > ";
+		cin >> home_path;
+		cout << endl << "Confirm path to home > ";
+		cin >> home_path_confirm;
+		if(home_path != home_path_confirm){
+			cout << endl << "Paths are not the same > ";
+			Sleep(3);
+			exit(1);
+		} else{
+			dtbs_first_time << home_path << endl;
+		}
+		return music_path, home_path;
+	} else{
+		ifstream dtbs("dtbs.txt");
+		while(!dtbs.eof()){
+			dtbs >> music_path;
+			dtbs >> home_path;
+			cout << music_path << endl << home_path;
+			return music_path, home_path;
+		}
+	}
+	
+}
+
 wstring string_to_wstring(const string& s)
 {
     int len;

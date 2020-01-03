@@ -9,6 +9,9 @@ void main_loop();
 
 int main(){
  
+ music_path = get_music_path();
+ home_path = get_home_path();
+ 
  main_loop();
 
     return 0;
