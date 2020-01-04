@@ -34,8 +34,5 @@ def download(url, dw_path):
     with youtube_dl.YoutubeDL(download_options) as dl:
         dl.download([url])
 
-
-print("polla1")
-#download(sys.argv[2], sys.argv[3])
-print("polla2")
+download(sys.argv[2], sys.argv[3])
 a = input()
