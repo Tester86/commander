@@ -7,8 +7,11 @@ void sleep(const int seconds);
 vector<string> split_string(const string& str, const string& delimiter);
 void main_loop();
 
+string work_path;
+
 int main(){
  
+ work_path = getdir();
  music_path = get_music_path();
  home_path = get_home_path();
  chdir(home_path.c_str());
@@ -98,6 +101,13 @@ while(1){
 	 else if(cmd[0] == "play"){
 	 	play_song(cmd[1]);
 	 }
+	 else if(cmd[0] == "dw" || cmd[0] == "download"){
+	 	string former_path = getdir();
+	 	string win_cmd = "start dw.py " + cmd[1] + music_path;
+	 	chdir(work_path.c_str());
+	 	system(win_cmd.c_str());
+	 	chdir(former_path.c_str());
+	}
 	 else if(cmd[0] == "win"){
 	 	string win_cmd = join(cmd, "win");
 	 	system(win_cmd.c_str());
