@@ -11,6 +11,7 @@ int main(){
  
  music_path = get_music_path();
  home_path = get_home_path();
+ chdir(home_path.c_str());
  
  main_loop();
 
