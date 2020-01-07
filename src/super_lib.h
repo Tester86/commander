@@ -59,4 +59,23 @@ void music_menu(){
 }
 }
 
+void adapt(){
+	vector<string> elems = listdir();
+	int result;
+	for(int i = 0; i < elems.size(); i++){
+		if(endswith(elems[i], ".webm")){
+			string new_name;
+			cout << "Save downloaded song as... > ";
+			cin >> new_name;
+			if(!endswith(new_name, ".mp3")){
+				new_name += ".mp3";
+			}
+			result = rename(elems[i].c_str(), new_name.c_str());
+			if(result != 0){
+				cout << "An error occurred while trying to rename the downloaded file" << endl;
+			} else cout << new_name << " successfully downloaded" << endl;
+		}
+	}
+}
+
 

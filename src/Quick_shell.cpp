@@ -96,17 +96,19 @@ while(1){
 		 }
 	 }
 	 else if(cmd[0] == "music"){
+	 	chdir(music_path.c_str());
 	 	music_menu();
 	 }
 	 else if(cmd[0] == "play"){
 	 	play_song(cmd[1]);
 	 }
 	 else if(cmd[0] == "dw" || cmd[0] == "download"){
-	 	string former_path = getdir();
-	 	string win_cmd = "start dw.py " + cmd[1] + music_path;
-	 	chdir(work_path.c_str());
+	 	string cur_path = getdir();
+	 	string win_cmd = "py -m youtube_dl -i --extract-audio --audio-format mp3 " + cmd[1];
+	 	chdir(music_path.c_str());
 	 	system(win_cmd.c_str());
-	 	chdir(former_path.c_str());
+	 	adapt();
+	 	chdir(cur_path.c_str());
 	}
 	 else if(cmd[0] == "win"){
 	 	string win_cmd = join(cmd, "win");
@@ -122,7 +124,6 @@ while(1){
 	 }
 }
 }
-
 
 void help(const string elem){
 	if(elem == "miscelanea" || elem == "general" || elem == "overall"){
