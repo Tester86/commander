@@ -95,6 +95,12 @@ while(1){
 	 		rmfile(cmd[i]);
 		 }
 	 }
+	 else if(cmd[0] == "mkdir"){
+	 	mkdir(cmd[1].c_str());
+	 }
+	 else if(cmd[0] == "move"){
+	 	move_file(cmd[1], cmd[2]);
+	 }
 	 else if(cmd[0] == "music"){
 	 	chdir(music_path.c_str());
 	 	music_menu();
@@ -130,6 +136,8 @@ void help(const string elem){
 	cout << "\nTask:                                Function:" << endl << endl;
 	cout << "  help                                  Shows help menu" << endl;
 	cout << "  clear / cls                           Clear screen" << endl << endl;
+	cout << "  cd [directory]                        Changes current directory" << endl;
+	cout << "  ls                                    Lists all fies and folders in current directory" << endl;
 } else if(elem == "files"){
 	cout << "\nFiles:" << endl;
 	cout << "  write [file]                                 Opens code editor to write a file" << endl;
@@ -137,6 +145,8 @@ void help(const string elem){
 	cout << "  read [file]                                  Prints content of a file onscreen" << endl;
 	cout << "  copy [file] to [new file path]               Copies the content of a file to another file" << endl;
 	cout << "  remove / rm [file / dir]                     Removes a file" << endl << endl;
+	cout << "  mkdir [directory name]                       Creates a new folder" << endl;
+	cout << "  move [file] [path]                           Move a file to another directory" << endl;
 } else if(elem == "music"){
 	cout << "\n  music                                           Opens music menu" << endl;
 	cout << "  play [song filename]                            Plays a song in predetermined music player" << endl;

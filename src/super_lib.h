@@ -79,3 +79,53 @@ void adapt(){
 }
 
 
+/////// FILES ///////////
+
+void rmdirec(const string dirname){
+	if(rmdir(dirname.c_str()) != 0){
+		cout << "Error" << endl;
+	}
+}
+
+void rmfile(const string filename){
+	if(isFile(filename)){
+		if(remove(filename.c_str()) != 0){
+			cout << colorize("This file does not exist: ", "red") << filename << endl;
+			end_colorize();
+		}
+	}
+	else if(isDir(filename)){
+		chdir(filename.c_str());
+		vector<string> elems = listdir();
+		for(int i = 0; i < elems.size(); i++){
+			if(isFile(elems[i])){
+				if(remove(elems[i].c_str()) != 0){
+					cout << colorize("An error occurred when trying to delete this file: ", "red") << elems[i] << endl;
+					end_colorize();
+				}
+			} else{
+				rmfile(elems[i]);
+			}
+	}
+	chdir("..");
+	rmdir(filename.c_str());
+}
+}
+
+void move_file(const string filename, const string dir){
+		if(exists(filename.c_str())){
+			string f2 = dir + "/" + filename;
+			string win_cmd = "del " + filename;
+			ifstream file1(filename.c_str(), ios::in | ios::binary);
+			ofstream file2(f2.c_str(), ios::out | ios::binary);
+			file2 << file1.rdbuf();
+			file1.close();
+			file2.close();
+			rmfile(filename);
+			} else{
+			cout << colorize("This file does not exist: ", "red") << colorize(filename, "red");
+			end_colorize();
+		}
+}
+
+

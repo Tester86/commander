@@ -45,10 +45,6 @@ void init_fw(const string filename, const string mode){
 		}
 	}
 	}
-	
-void cat(const string filename){
-	
-}
 void copy(const string first_filename, const string second_filename){
 	string line;
 	
@@ -62,7 +58,7 @@ void copy(const string first_filename, const string second_filename){
 	f2.close();
 }
 
-bool isFile(string elem){
+bool isFile(const string elem){
 	DIR* directory = opendir(elem.c_str());
 
     if(directory != NULL)
@@ -79,9 +75,11 @@ bool isFile(string elem){
     return false;
 }
 
-void rmfile(const string filename){
-	if(remove(filename.c_str()) != 0){
-		cout << endl << "This file cannot be deleted: " << filename << endl;
+bool isDir(const string elem){
+	if(chdir(elem.c_str()) == 0){
+		return true;
 	}
+	return false;
 }
+
 
