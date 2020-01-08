@@ -78,7 +78,33 @@ void adapt(){
 	}
 }
 
-
+void play_list(const string filename){
+	if(!exists(filename.c_str())){
+		cout << colorize("This file does not exist: ", "red") << filename << endl;
+		end_colorize();
+	}
+	else{
+		ifstream song_dtbs;
+		song_dtbs.open(filename.c_str());
+		string line, win_cmd;
+		vector<string> songs;
+		
+		while(getline(song_dtbs, line)){
+			songs.push_back(line);
+		}
+		for(int i = 0; i < songs.size(); i++){
+			if(exists(songs[i].c_str())){
+				win_cmd = "start " + songs[i];
+				system(win_cmd.c_str());
+			}
+			else{
+				cout << colorize("This file does not exist: ", "red") << songs[i] << endl;
+				end_colorize();
+				continue;
+			}
+		}
+	}
+}
 /////// FILES ///////////
 
 void rmdirec(const string dirname){
@@ -128,4 +154,10 @@ void move_file(const string filename, const string dir){
 		}
 }
 
-
+bool containsFileType(const string filetype){
+	vector<string> elems = listdir();
+	for(int i = 0; i < elems.size(); i++){
+		if(endswith(elems[i], filetype)) return true;
+		else return false;
+	}
+}

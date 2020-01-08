@@ -82,4 +82,6 @@ bool isDir(const string elem){
 	return false;
 }
 
-
+/*void add_to_playlist(const string elem){
+	ofstream elem;
+}*/

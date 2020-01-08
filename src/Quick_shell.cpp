@@ -102,12 +102,25 @@ while(1){
 	 	move_file(cmd[1], cmd[2]);
 	 }
 	 else if(cmd[0] == "music"){
-	 	chdir(music_path.c_str());
+	 	if(!(containsFileType(".mp3") || containsFileType(".wav"))){
+	 		chdir(music_path.c_str());
+		 }
 	 	music_menu();
 	 }
 	 else if(cmd[0] == "play"){
 	 	play_song(cmd[1]);
 	 }
+	 /*else if(cmd[0] == "playlist"){
+	 	if(cmd[1] == "play"){
+	 		play_list(cmd[2]);
+		 }
+		 else if(cmd[1] == "create"){
+		 	ofstream file(cmd[2]);
+		 }
+		 else if(cmd[1] == "add"){
+		 	add_to_playlist(cmd[2]);
+		 }
+	 }*/
 	 else if(cmd[0] == "dw" || cmd[0] == "download"){
 	 	string cur_path = getdir();
 	 	string win_cmd = "py -m youtube_dl -i --extract-audio --audio-format mp3 " + cmd[1];
